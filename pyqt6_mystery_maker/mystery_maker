@@ -24,10 +24,10 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("My App")
 
         # Create our Layouts
-        vertical_layout = QVBoxLayout()
+        main_layout = QVBoxLayout()
 
         # QLable Example
-        title_label = QLabel("App")
+        title_label = QLabel(" Mystery Maker ")
 
         # Set the font
         font = title_label.font()
@@ -39,30 +39,32 @@ class MainWindow(QMainWindow):
                                  Qt.AlignmentFlag.AlignTop)
         
         # Add label to the layout
-        vertical_layout.addWidget(title_label)
+        main_layout.addWidget(title_label)
 
         # Checkboxes
         this_checkbox = QCheckBox()
         this_label = QLabel("this")
+        this_label.setAlignment(Qt.AlignmentFlag.AlignLeft)
         that_checkbox = QCheckBox()
         that_label = QLabel("that")
+        that_label.setAlignment(Qt.AlignmentFlag.AlignLeft)
 
         # Add checkboxes to the horizontal layout
         check_box_row = QHBoxLayout()
+        check_box_row.setAlignment(Qt.AlignmentFlag.AlignLeft | 
+                                   Qt.AlignmentFlag.AlignVCenter)
         check_box_row.addWidget(this_checkbox)
         check_box_row.addWidget(this_label)
         check_box_row.addWidget(that_checkbox)
         check_box_row.addWidget(that_label)
 
         # Add row to vertical layout
-        vertical_layout.addLayout(check_box_row)
+        main_layout.addLayout(check_box_row)
 
         # Set the main layout
         gui = QWidget()
-        gui.setLayout(vertical_layout)
+        gui.setLayout(main_layout)
         self.setCentralWidget(gui)
-
-        self.setCentralWidget(title_label)
 
 app = QApplication(sys.argv)
 window = MainWindow()
