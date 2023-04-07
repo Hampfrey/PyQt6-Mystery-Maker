@@ -24,46 +24,86 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("My App")
 
         # Create our Layouts
-        main_layout = QVBoxLayout()
+        layout_main = QVBoxLayout()
 
         # QLable Example
-        title_label = QLabel(" Mystery Maker ")
-
-        # Set the font
-        font = title_label.font()
+        lable_title = QLabel(" Mystery Maker ")
+        font = lable_title.font()
         font.setPointSize(30)
-        title_label.setFont(font)
-
-        # Align the label
-        title_label.setAlignment(Qt.AlignmentFlag.AlignHCenter | 
+        lable_title.setFont(font)
+        lable_title.setAlignment(Qt.AlignmentFlag.AlignHCenter | 
                                  Qt.AlignmentFlag.AlignTop)
-        
-        # Add label to the layout
-        main_layout.addWidget(title_label)
+        layout_main.addWidget(lable_title)
 
-        # Checkboxes
-        this_checkbox = QCheckBox()
-        this_label = QLabel("this")
-        this_label.setAlignment(Qt.AlignmentFlag.AlignLeft)
-        that_checkbox = QCheckBox()
-        that_label = QLabel("that")
-        that_label.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        # Line Edit
+        input_name = QLineEdit("Name")
+        layout_name = QVBoxLayout()
+        layout_name.setAlignment(Qt.AlignmentFlag.AlignHCenter | 
+                                       Qt.AlignmentFlag.AlignTop)
+        layout_name.addWidget(input_name)
 
-        # Add checkboxes to the horizontal layout
-        check_box_row = QHBoxLayout()
-        check_box_row.setAlignment(Qt.AlignmentFlag.AlignLeft | 
-                                   Qt.AlignmentFlag.AlignVCenter)
-        check_box_row.addWidget(this_checkbox)
-        check_box_row.addWidget(this_label)
-        check_box_row.addWidget(that_checkbox)
-        check_box_row.addWidget(that_label)
+        # Spin Box
+        input_weight = QSpinBox()
+        label_weight = QLabel("Weight")
+        label_weight.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        layout_weight = QHBoxLayout()
+        layout_weight.setAlignment(Qt.AlignmentFlag.AlignTop)
+        layout_weight.addWidget(input_weight)
+        layout_weight.addWidget(label_weight)
 
-        # Add row to vertical layout
-        main_layout.addLayout(check_box_row)
+        # Curent
+        label_curent_name = QLabel("Name")
+        label_current_weight = QLabel("Weight : ##")
+        label_position = QLabel("Position : ##")
+        layout_current = QHBoxLayout()
+        layout_current.setAlignment(Qt.AlignmentFlag.AlignTop)
+        layout_current.addWidget(label_curent_name)
+        layout_current.addWidget(label_current_weight)
+        layout_current.addWidget(label_position)
+
+        # Change Space Buttons
+        input_left = QPushButton("Previous Character") 
+        input_right = QPushButton("Next Character")
+        layout_position = QHBoxLayout()
+        layout_position.setAlignment(Qt.AlignmentFlag.AlignTop)
+        layout_position.addWidget(input_left)
+        layout_position.addWidget(input_right)
+
+        input_stage = QPushButton("Stage")
+        layout_stage = QHBoxLayout()
+        layout_stage.setAlignment(Qt.AlignmentFlag.AlignTop)
+        layout_stage.addWidget(input_stage)
+
+        # Break
+        label_format = QLabel("------------------------------------------------------------")
+        label_format.setAlignment(Qt.AlignmentFlag.AlignHCenter | 
+                                 Qt.AlignmentFlag.AlignTop)
+        layout_format = QVBoxLayout()
+        layout_format.setAlignment(Qt.AlignmentFlag.AlignHCenter | 
+                                       Qt.AlignmentFlag.AlignTop)
+        layout_format.addWidget(label_format)
+
+        # Ouptut
+        label_ouput = QLabel("Story :")
+        label_ouput.setAlignment(Qt.AlignmentFlag.AlignLeft | 
+                                 Qt.AlignmentFlag.AlignTop)
+        layout_ouput = QVBoxLayout()
+        layout_ouput.setAlignment(Qt.AlignmentFlag.AlignLeft | 
+                                       Qt.AlignmentFlag.AlignTop)
+        layout_ouput.addWidget(label_ouput)
+
+        # Add to vertical layout
+        layout_main.addLayout(layout_name)
+        layout_main.addLayout(layout_weight)
+        layout_main.addLayout(layout_current)
+        layout_main.addLayout(layout_position)
+        layout_main.addLayout(layout_stage)
+        layout_main.addLayout(layout_format)
+        layout_main.addLayout(layout_ouput)
 
         # Set the main layout
         gui = QWidget()
-        gui.setLayout(main_layout)
+        gui.setLayout(layout_main)
         self.setCentralWidget(gui)
 
 app = QApplication(sys.argv)
