@@ -1,5 +1,6 @@
 import sys
 import random
+import controller
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
@@ -63,12 +64,15 @@ class MainWindow(QMainWindow):
 
         # Change Space Buttons
         input_left = QPushButton("Previous Character") 
+        input_save = QPushButton("Save") 
         input_right = QPushButton("Next Character")
         layout_position = QHBoxLayout()
         layout_position.setAlignment(Qt.AlignmentFlag.AlignTop)
         layout_position.addWidget(input_left)
+        layout_position.addWidget(input_save)
         layout_position.addWidget(input_right)
 
+        # Stage
         input_stage = QPushButton("Stage")
         layout_stage = QHBoxLayout()
         layout_stage.setAlignment(Qt.AlignmentFlag.AlignTop)
@@ -111,3 +115,5 @@ window = MainWindow()
 window.show()
 
 app.exec()
+
+"""From the mockup I had to add a couple things I to fit within my knowledge of python. First, the details of the character currently saved to the array are displayed. Second, A save button was added between the cycle buttons to trigger the code to store the values. Third, the checkbox rules were removed. Finally, the Output was moved below the input rather than to the side because it makes the Name field bigger for longer names. """
