@@ -22,7 +22,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        self.setWindowTitle("My App")
+        self.setWindowTitle("Mystery Maker")
 
         # Create our Layouts
         layout_main = QVBoxLayout()
@@ -37,46 +37,51 @@ class MainWindow(QMainWindow):
         layout_main.addWidget(lable_title)
 
         # Line Edit
-        input_name = QLineEdit("Name")
+        self.input_name = QLineEdit("Name")
         layout_name = QVBoxLayout()
         layout_name.setAlignment(Qt.AlignmentFlag.AlignHCenter | 
                                        Qt.AlignmentFlag.AlignTop)
-        layout_name.addWidget(input_name)
+        layout_name.addWidget(self.input_name)
 
         # Spin Box
-        input_weight = QSpinBox()
+        self.input_weight = QSpinBox()
         label_weight = QLabel("Weight")
         label_weight.setAlignment(Qt.AlignmentFlag.AlignLeft)
         layout_weight = QHBoxLayout()
         layout_weight.setAlignment(Qt.AlignmentFlag.AlignTop)
-        layout_weight.addWidget(input_weight)
+        layout_weight.addWidget(self.input_weight)
         layout_weight.addWidget(label_weight)
 
         # Curent
-        label_curent_name = QLabel("Name")
-        label_current_weight = QLabel("Weight : ##")
-        label_position = QLabel("Position : ##")
+        self.output_curent_name = QLineEdit("Name")
+        self.output_current_weight = QLineEdit("Weight : ##")
+        self.output_position = QLineEdit("Position : ##")
         layout_current = QHBoxLayout()
         layout_current.setAlignment(Qt.AlignmentFlag.AlignTop)
-        layout_current.addWidget(label_curent_name)
-        layout_current.addWidget(label_current_weight)
-        layout_current.addWidget(label_position)
+        layout_current.addWidget(self.output_curent_name)
+        layout_current.addWidget(self.output_current_weight)
+        layout_current.addWidget(self.output_position)
 
         # Change Space Buttons
-        input_left = QPushButton("Previous Character") 
-        input_save = QPushButton("Save") 
-        input_right = QPushButton("Next Character")
+        self.input_left = QPushButton("Previous Character") 
+        self.input_save = QPushButton("Save") 
+        self.input_right = QPushButton("Next Character")
         layout_position = QHBoxLayout()
         layout_position.setAlignment(Qt.AlignmentFlag.AlignTop)
-        layout_position.addWidget(input_left)
-        layout_position.addWidget(input_save)
-        layout_position.addWidget(input_right)
+        layout_position.addWidget(self.input_left)
+        layout_position.addWidget(self.input_save)
+        layout_position.addWidget(self.input_right)
 
         # Stage
-        input_stage = QPushButton("Stage")
+        self.input_stage = QPushButton("Stage")
+
+        # Stage function
+        self.input_stage.clicked.connect(self.stage)
+
+
         layout_stage = QHBoxLayout()
         layout_stage.setAlignment(Qt.AlignmentFlag.AlignTop)
-        layout_stage.addWidget(input_stage)
+        layout_stage.addWidget(self.input_stage)
 
         # Break
         label_format = QLabel("------------------------------------------------------------")
@@ -88,13 +93,13 @@ class MainWindow(QMainWindow):
         layout_format.addWidget(label_format)
 
         # Ouptut
-        label_ouput = QLabel("Story :")
-        label_ouput.setAlignment(Qt.AlignmentFlag.AlignLeft | 
+        self.output_names = QLineEdit("Names :")
+        self.output_names.setAlignment(Qt.AlignmentFlag.AlignLeft | 
                                  Qt.AlignmentFlag.AlignTop)
         layout_ouput = QVBoxLayout()
         layout_ouput.setAlignment(Qt.AlignmentFlag.AlignLeft | 
                                        Qt.AlignmentFlag.AlignTop)
-        layout_ouput.addWidget(label_ouput)
+        layout_ouput.addWidget(self.output_names)
 
         # Add to vertical layout
         layout_main.addLayout(layout_name)
@@ -109,6 +114,12 @@ class MainWindow(QMainWindow):
         gui = QWidget()
         gui.setLayout(layout_main)
         self.setCentralWidget(gui)
+
+    def stage(self):
+        """Get new name"""
+        # Get space
+        
+
 
 app = QApplication(sys.argv)
 window = MainWindow()

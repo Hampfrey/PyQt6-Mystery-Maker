@@ -4,6 +4,7 @@ functions for mystery maker
 """
 
 # Imports
+import random
 
 # Functions
 
