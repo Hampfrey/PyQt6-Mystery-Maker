@@ -18,7 +18,9 @@ from PyQt6.QtWidgets import (
 )
 
 class MainWindow(QMainWindow):
-
+    names = ["null"]
+    weights = ["null"]
+    position = 0
     def __init__(self):
         super(MainWindow, self).__init__()
 
@@ -53,12 +55,12 @@ class MainWindow(QMainWindow):
         layout_weight.addWidget(label_weight)
 
         # Curent
-        self.output_curent_name = QLineEdit("Name")
-        self.output_current_weight = QLineEdit("Weight : ##")
-        self.output_position = QLineEdit("Position : ##")
+        self.output_current_name = QLabel("Name")
+        self.output_current_weight = QLabel("Weight")
+        self.output_position = QLabel("Position")
         layout_current = QHBoxLayout()
         layout_current.setAlignment(Qt.AlignmentFlag.AlignTop)
-        layout_current.addWidget(self.output_curent_name)
+        layout_current.addWidget(self.output_current_name)
         layout_current.addWidget(self.output_current_weight)
         layout_current.addWidget(self.output_position)
 
@@ -66,25 +68,27 @@ class MainWindow(QMainWindow):
         self.input_left = QPushButton("Previous Character") 
         self.input_save = QPushButton("Save") 
         self.input_right = QPushButton("Next Character")
+
+        # Change Space Functions
+        self.input_save.clicked.connect(self.save)
+
         layout_position = QHBoxLayout()
         layout_position.setAlignment(Qt.AlignmentFlag.AlignTop)
         layout_position.addWidget(self.input_left)
         layout_position.addWidget(self.input_save)
         layout_position.addWidget(self.input_right)
 
-        # Stage
-        self.input_stage = QPushButton("Stage")
+        # Get Character
+        self.input_stage = QPushButton("Get Character")
 
-        # Stage function
+        # Get Character Function
         self.input_stage.clicked.connect(self.stage)
-
-
         layout_stage = QHBoxLayout()
         layout_stage.setAlignment(Qt.AlignmentFlag.AlignTop)
         layout_stage.addWidget(self.input_stage)
 
         # Break
-        label_format = QLabel("------------------------------------------------------------")
+        label_format = QLabel("------------------------------ Output ------------------------------")
         label_format.setAlignment(Qt.AlignmentFlag.AlignHCenter | 
                                  Qt.AlignmentFlag.AlignTop)
         layout_format = QVBoxLayout()
@@ -93,7 +97,7 @@ class MainWindow(QMainWindow):
         layout_format.addWidget(label_format)
 
         # Ouptut
-        self.output_names = QLineEdit("Names :")
+        self.output_names = QLabel()
         self.output_names.setAlignment(Qt.AlignmentFlag.AlignLeft | 
                                  Qt.AlignmentFlag.AlignTop)
         layout_ouput = QVBoxLayout()
@@ -115,11 +119,46 @@ class MainWindow(QMainWindow):
         gui.setLayout(layout_main)
         self.setCentralWidget(gui)
 
-    def stage(self):
-        """Get new name"""
-        # Get space
-        
+    def save(self):
+        """Save to current positon"""
+        # Get Variables
+        saving_name = self.input_name.text()
+        saving_weight = self.input_weight.value()
 
+        # Print details
+        print(saving_name)
+        print(saving_weight)
+        self.output_names.setText(f"Saved name [{saving_name}] with weight [{saving_weight}] at positon [NOT DONE YET]")
+
+        # Save to arrays
+        MainWindow.names[MainWindow.position] = saving_name
+        MainWindow.weights[MainWindow.position] = saving_weight
+
+        # Update
+        MainWindow.update_labels()
+
+    def update_labels(self):
+        """Update Labels"""
+        # Change
+        self.output_position.setText(MainWindow.position)
+        self.output_current_name.setText(MainWindow.names[MainWindow.position])
+        self.output_current_weight .setText(MainWindow.weights[MainWindow.position])
+        
+         
+    def previous_character(self):
+        """Move positon back one"""
+        # Move
+        MainWindow.position -= 1
+        MainWindow.update_labels()
+    
+    def next_character(self):
+        """Move positon back one"""
+        # Move
+        MainWindow.position += 1
+        MainWindow.update_labels()
+
+    def stage(self):
+        """Get a new charcter"""
 
 app = QApplication(sys.argv)
 window = MainWindow()
