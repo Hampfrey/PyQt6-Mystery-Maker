@@ -57,7 +57,7 @@ class MainWindow(QMainWindow):
         # Curent
         self.output_current_name = QLabel("Name")
         self.output_current_weight = QLabel("Weight")
-        self.output_position = QLabel("Position")
+        self.output_position = QLabel(str(MainWindow.position))
         layout_current = QHBoxLayout()
         layout_current.setAlignment(Qt.AlignmentFlag.AlignTop)
         layout_current.addWidget(self.output_current_name)
@@ -70,8 +70,11 @@ class MainWindow(QMainWindow):
         self.input_right = QPushButton("Next Character")
 
         # Change Space Functions
+        self.input_left.clicked.connect(self.previous_character)
         self.input_save.clicked.connect(self.save)
+        self.input_right.clicked.connect(self.next_character)
 
+        # Add to Layout
         layout_position = QHBoxLayout()
         layout_position.setAlignment(Qt.AlignmentFlag.AlignTop)
         layout_position.addWidget(self.input_left)
@@ -135,27 +138,27 @@ class MainWindow(QMainWindow):
         MainWindow.weights[MainWindow.position] = saving_weight
 
         # Update
-        MainWindow.update_labels()
+        self.update_labels()
 
     def update_labels(self):
         """Update Labels"""
         # Change
-        self.output_position.setText(MainWindow.position)
-        self.output_current_name.setText(MainWindow.names[MainWindow.position])
-        self.output_current_weight .setText(MainWindow.weights[MainWindow.position])
+        self.output_position.setText(str(MainWindow.position))
+        self.output_current_name.setText(str(MainWindow.names[MainWindow.position]))
+        self.output_current_weight .setText(str(MainWindow.weights[MainWindow.position]))
         
          
     def previous_character(self):
         """Move positon back one"""
         # Move
         MainWindow.position -= 1
-        MainWindow.update_labels()
+        self.update_labels()
     
     def next_character(self):
         """Move positon back one"""
         # Move
         MainWindow.position += 1
-        MainWindow.update_labels()
+        self.update_labels()
 
     def stage(self):
         """Get a new charcter"""
