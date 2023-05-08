@@ -18,12 +18,11 @@ from PyQt6.QtWidgets import (
 )
 
 class MainWindow(QMainWindow):
-    names = ["null"]
-    weights = ["null"]
-    position = 0
     def __init__(self):
         super(MainWindow, self).__init__()
-
+        self.names = ["null", "null", "null"]
+        self.weights = ["null", "null", "null"]
+        self.position = 0
         self.setWindowTitle("Mystery Maker")
 
         # Create our Layouts
@@ -57,22 +56,26 @@ class MainWindow(QMainWindow):
         # Curent
         self.output_current_name = QLabel("Name")
         self.output_current_weight = QLabel("Weight")
-        self.output_position = QLabel(str(MainWindow.position))
+        self.output_position = QLabel(str(self.position))
+        self.output_names_length = QLabel("Total : 0-" + str(len(self.names) - 1))
         layout_current = QHBoxLayout()
         layout_current.setAlignment(Qt.AlignmentFlag.AlignTop)
         layout_current.addWidget(self.output_current_name)
         layout_current.addWidget(self.output_current_weight)
         layout_current.addWidget(self.output_position)
+        layout_current.addWidget(self.output_names_length)
 
         # Change Space Buttons
         self.input_left = QPushButton("Previous Character") 
         self.input_save = QPushButton("Save") 
         self.input_right = QPushButton("Next Character")
+        self.input_new = QPushButton("New Character")
 
         # Change Space Functions
         self.input_left.clicked.connect(self.previous_character)
         self.input_save.clicked.connect(self.save)
         self.input_right.clicked.connect(self.next_character)
+        self.input_new.clicked.connect(self.new_character)
 
         # Add to Layout
         layout_position = QHBoxLayout()
@@ -80,6 +83,7 @@ class MainWindow(QMainWindow):
         layout_position.addWidget(self.input_left)
         layout_position.addWidget(self.input_save)
         layout_position.addWidget(self.input_right)
+        layout_position.addWidget(self.input_new)
 
         # Get Character
         self.input_stage = QPushButton("Get Character")
@@ -131,11 +135,11 @@ class MainWindow(QMainWindow):
         # Print details
         print(saving_name)
         print(saving_weight)
-        self.output_names.setText(f"Saved name [{saving_name}] with weight [{saving_weight}] at positon [NOT DONE YET]")
+        self.output_names.setText(f"Saved name [{saving_name}] with weight [{saving_weight}] at positon [{self.position}]")
 
         # Save to arrays
-        MainWindow.names[MainWindow.position] = saving_name
-        MainWindow.weights[MainWindow.position] = saving_weight
+        self.names[self.position] = saving_name
+        self.weights[self.position] = saving_weight
 
         # Update
         self.update_labels()
@@ -143,25 +147,38 @@ class MainWindow(QMainWindow):
     def update_labels(self):
         """Update Labels"""
         # Change
-        self.output_position.setText(str(MainWindow.position))
-        self.output_current_name.setText(str(MainWindow.names[MainWindow.position]))
-        self.output_current_weight .setText(str(MainWindow.weights[MainWindow.position]))
-        
+        self.output_position.setText(str(self.position))
+        self.output_current_name.setText(str(self.names[self.position]))
+        self.output_current_weight.setText(str(self.weights[self.position]))
+        self.output_names_length.setText("Total : 0-" + str(len(self.names) - 1))
          
     def previous_character(self):
         """Move positon back one"""
         # Move
-        MainWindow.position -= 1
+        self.position -= 1
+        if self.position < 0:
+            self.position = len(self.names) - 1
         self.update_labels()
     
     def next_character(self):
         """Move positon back one"""
         # Move
-        MainWindow.position += 1
+        self.position += 1
+        if self.position > len(self.names) - 1:
+            self.position = 0
+
+        print(self.names)
+        self.update_labels()
+
+    def new_character(self):
+        """Add a new character"""
+        self.names.append("null")
+        self.weights.append("null")
         self.update_labels()
 
     def stage(self):
         """Get a new charcter"""
+        
 
 app = QApplication(sys.argv)
 window = MainWindow()
