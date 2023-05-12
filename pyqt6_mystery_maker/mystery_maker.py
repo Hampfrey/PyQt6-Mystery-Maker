@@ -9,9 +9,7 @@ from PyQt6.QtWidgets import (
     QLineEdit,
     QMainWindow,
     QPushButton,
-    QSlider,
     QSpinBox,
-    QCheckBox,
     QVBoxLayout,
     QHBoxLayout,
     QWidget,
@@ -20,8 +18,8 @@ from PyQt6.QtWidgets import (
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
-        self.names = ["Jack", "Jill", "Bill", "Bob", "Harley"]
-        self.weights = [2, 1, 3, 2, 4]
+        self.names = ["null"]
+        self.weights = [1] 
         self.position = 0
         self.setWindowTitle("Mystery Maker")
 
@@ -205,18 +203,11 @@ class MainWindow(QMainWindow):
         print(str(chosen) + "-C")
         print(self.names[chosen])
 
-                
-
-
-
-
-
-
+        # Display
+        self.output_names.setText(self.names[chosen])
 
 app = QApplication(sys.argv)
 window = MainWindow()
 window.show()
 
 app.exec()
-
-"""From the mockup I had to add a couple things I to fit within my knowledge of python. First, the details of the character currently saved to the array are displayed. Second, A save button was added between the cycle buttons to trigger the code to store the values. Third, the checkbox rules were removed. Finally, the Output was moved below the input rather than to the side because it makes the Name field bigger for longer names. """
